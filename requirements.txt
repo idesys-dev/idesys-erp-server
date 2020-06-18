@@ -1,0 +1,13 @@
+flask-cors
+werkzeug
+flask-mongoengine
+bcrypt
+pyjwt
+dnspython
+jinja2
+openpyxl
+docxtpl
+slackclient
+flask-admin
+email_validator
+pptx_template_simple
