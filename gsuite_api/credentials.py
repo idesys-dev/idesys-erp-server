@@ -16,7 +16,7 @@ if not os.path.exists(SERVICE_ACCOUNT_FILE):
         raise Exception('Provide Google API json file')
     else:
         with open(SERVICE_ACCOUNT_FILE, 'w') as my_file:
-            my_file.writz(GOOGLE_API_JSON_FILE)
+            my_file.write(GOOGLE_API_JSON_FILE)
 
 
 def get_delegated_credentials(scopes, user_email=None):
