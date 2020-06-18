@@ -1,4 +1,5 @@
 from copy import copy
+import os
 
 
 from docxtpl import DocxTemplate
@@ -8,6 +9,12 @@ from openpyxl.utils import get_column_letter
 from pptx_template import render
 
 
+OUTPUT_DIR = "data/output/"
+
+if not os.path.exists(OUTPUT_DIR):
+    os.mkdir(OUTPUT_DIR)
+
+
 def render_docx(type, data, output_name):
     """
         data = { 'consultant_name' : "Jean" }
@@ -15,7 +22,7 @@ def render_docx(type, data, output_name):
     """
     doc = DocxTemplate("data/templates/{type}.docx".format(type=type))
     doc.render(data)
-    output_path = "data/output/" + output_name + ".docx"
+    output_path = OUTPUT_DIR + output_name + ".docx"
     doc.save(output_path)
     return output_path
 
@@ -52,13 +59,13 @@ def render_xlsx(type, data, output_name):
                 ws_out[get_column_letter(col) + str(row)] = rendered
                 ws_out[get_column_letter(col) + str(row)].font = copy(ws[get_column_letter(col) + str(row)].font)
 
-    output_path = "data/output/" + output_name + '.xlsx'
+    output_path = OUTPUT_DIR + output_name + '.xlsx'
     wb.save(filename=output_path)
     return output_path
 
 
 def render_pptx(type, data, output_name):
     input_path = "data/templates/{type}.pptx".format(type=type)
-    output_path = "data/output/" + output_name + ".pptx"
+    output_path = OUTPUT_DIR + output_name + ".pptx"
     render.render_pptx(input_path, data, output_path)
     return output_path
