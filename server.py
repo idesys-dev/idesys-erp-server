@@ -10,11 +10,19 @@ from api.api_home import api_blueprint
 from auth.views import auth_blueprint
 from admin.admin_home import create_admin
 
-with open('flask.secret') as my_file:
-    SECRET_KEY = my_file.read().strip()
 
-with open('mongo-password.secret') as my_file:
-    MONGODB_PASSWORD = my_file.read().strip()
+try:
+    SECRET_KEY = os.environ['FLASK_SECRET_KEY']
+except KeyError:
+    with open('flask.secret') as my_file:
+        SECRET_KEY = my_file.read().strip()
+
+try:
+    MONGODB_URI = os.environ['MONGODB_URI']
+except KeyError:
+    with open('mongodb_uri.secret') as my_file:
+        MONGODB_URI = my_file.read().strip()
+
 
 UPLOAD_FOLDER = 'data'
 
@@ -27,12 +35,8 @@ app.config['SECRET_KEY'] = SECRET_KEY
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024 # allow 50 megabytes file
 
-mongodbURI = 'mongodb+srv://webapp:{password}@cluster0-wg5mx.gcp.mongodb.net/{dbname}?retryWrites=true&w=majority'.format(
-    password=MONGODB_PASSWORD,
-    dbname='idesys'
-)
 app.config['MONGODB_SETTINGS'] = {
-    'host': mongodbURI
+    'host': MONGODB_URI
 }
 db = MongoEngine(app)
 #app.session_interface = MongoEngineSessionInterface(db)

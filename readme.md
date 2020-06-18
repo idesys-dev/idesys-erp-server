@@ -4,6 +4,10 @@ This is a server application coded in python3 using flask framework.
 
 Run
 
+    export FLASK_SECRET_KEY=xxx
+    export MONGODB_URI=xxx
+    export SLACK_BOT_TOKEN=xxx
+    export GOOGLE_API_JSON_FILE=xxx
     export FLASK_ENV=development
     python3 server.py
 

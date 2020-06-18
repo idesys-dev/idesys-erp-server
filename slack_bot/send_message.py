@@ -1,7 +1,15 @@
+import os
+
+
 from slack import WebClient
 
-with open('slack-token.secret') as my_file:
-    SLACK_BOT_TOKEN = my_file.read().strip()
+
+try:
+    SLACK_BOT_TOKEN = os.environ['SLACK_BOT_TOKEN']
+except KeyError:
+    with open('slack-token.secret') as my_file:
+        SLACK_BOT_TOKEN = my_file.read().strip()
+
 
 slack_client = WebClient(SLACK_BOT_TOKEN)
 

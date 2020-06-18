@@ -1,5 +1,5 @@
 __pycache__
-mongo-password.secret
+mongodb_uri.secret
 idesysbot0-1591888101053-9a8cbb4621b4.json
 slack-token.secret
 flask.secret

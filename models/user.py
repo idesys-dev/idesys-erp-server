@@ -10,8 +10,11 @@ import jwt
 from models.black_list_token import BlacklistToken
 
 
-with open('flask.secret') as my_file:
-    SECRET_KEY = my_file.read().strip()
+try:
+    SECRET_KEY = os.environ['FLASK_SECRET_KEY']
+except KeyError:
+    with open('flask.secret') as my_file:
+        SECRET_KEY = my_file.read().strip()
 
 
 class User(me.Document):
