@@ -35,6 +35,8 @@ Run
 
 This project is under development.
 
+Version: 0.0.2
+
 ## Setup Google API
 
  - go in the google cloud platform
