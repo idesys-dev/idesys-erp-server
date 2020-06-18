@@ -12,3 +12,4 @@ flask-admin
 email_validator
 pptx_template_simple
 gunicorn
+google-api-python-client
