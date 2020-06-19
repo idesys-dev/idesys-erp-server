@@ -2,11 +2,11 @@ from copy import copy
 import os
 
 
+import jinja2
 from docxtpl import DocxTemplate
-from jinja2 import Template
 from openpyxl import load_workbook, Workbook
 from openpyxl.utils import get_column_letter
-from pptx_template import render
+from template_pptx_jinja.render import PPTXRendering
 
 
 OUTPUT_DIR = "data/output/"
@@ -54,7 +54,7 @@ def render_xlsx(type, data, output_name):
                     content = str(content)
                     content = content.replace('.', ',')
 
-                template = Template(str(content))
+                template = jinja2.Template(str(content))
                 rendered = template.render(data)
                 ws_out[get_column_letter(col) + str(row)] = rendered
                 ws_out[get_column_letter(col) + str(row)].font = copy(ws[get_column_letter(col) + str(row)].font)
@@ -65,7 +65,22 @@ def render_xlsx(type, data, output_name):
 
 
 def render_pptx(type, data, output_name):
+    # see https://github.com/Thykof/template-pptx-jinja/blob/master/example.py
+    def majuscule(input):
+        return input.capitalize()
+
+    def gender(input, value):
+        # usage: {{president.sexe| gender('e')}}
+        return value if input == 'f' else ''
+
+    jinja2_env = jinja2.Environment()
+    jinja2_env.filters['gender'] = gender
+    jinja2_env.filters['majuscule'] = majuscule
+
     input_path = "data/templates/{type}.pptx".format(type=type)
     output_path = OUTPUT_DIR + output_name + ".pptx"
     render.render_pptx(input_path, data, output_path)
+    rendering = PPTXRendering(input_path, data, output_path, jinja2_env)
+    message = rendering.process()
+    print(message)  # DEBUG
     return output_path

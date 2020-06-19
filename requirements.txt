@@ -10,6 +10,6 @@ docxtpl
 slackclient
 flask-admin
 email_validator
-pptx_template_simple
+template-pptx-jinja
 gunicorn
 google-api-python-client
