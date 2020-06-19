@@ -10,11 +10,9 @@ from api.api_home import api_blueprint
 from auth.views import auth_blueprint
 from admin.admin_home import create_admin
 
-with open('flask.secret') as my_file:
-    SECRET_KEY = my_file.read().strip()
+SECRET_KEY =  os.environ['SECRET_KEY']
 
-with open('mongo-password.secret') as my_file:
-    MONGODB_PASSWORD = my_file.read().strip()
+MONGODB_PASSWORD = os.environ['MONGODB_PASSWORD']
 
 UPLOAD_FOLDER = 'data'
 
