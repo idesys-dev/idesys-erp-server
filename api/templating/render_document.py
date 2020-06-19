@@ -79,7 +79,6 @@ def render_pptx(type, data, output_name):
 
     input_path = "data/templates/{type}.pptx".format(type=type)
     output_path = OUTPUT_DIR + output_name + ".pptx"
-    render.render_pptx(input_path, data, output_path)
     rendering = PPTXRendering(input_path, data, output_path, jinja2_env)
     message = rendering.process()
     print(message)  # DEBUG
