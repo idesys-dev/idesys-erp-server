@@ -1,5 +1,6 @@
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
 
 from flask import Flask
 from flask_cors import CORS
@@ -10,15 +11,14 @@ from api.api_home import api_blueprint
 from auth.views import auth_blueprint
 from admin.admin_home import create_admin
 
-
 try:
-    SECRET_KEY = os.environ['FLASK_SECRET_KEY']
+    SECRET_KEY = os.getenv('FLASK_SECRET_KEY')
 except KeyError:
     with open('flask.secret') as my_file:
         SECRET_KEY = my_file.read().strip()
 
 try:
-    MONGODB_URI = os.environ['MONGODB_URI']
+    MONGODB_URI = os.getenv('MONGODB_URI')
 except KeyError:
     with open('mongodb_uri.secret') as my_file:
         MONGODB_URI = my_file.read().strip()
@@ -50,4 +50,4 @@ def hello_world():
 
 # Start the server on port 3001
 if __name__ == "__main__":
-    app.run(port=3001)
+    app.run(host= os.getenv('FLASK_RUN_HOST'), port=3001)

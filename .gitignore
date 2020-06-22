@@ -5,3 +5,4 @@ slack-token.secret
 flask.secret
 data/output/*
 .env
+.env.local.docker
