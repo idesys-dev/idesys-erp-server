@@ -24,7 +24,7 @@ except KeyError:
         MONGODB_URI = my_file.read().strip()
 
 
-UPLOAD_FOLDER = 'data'
+# UPLOAD_FOLDER = 'data'
 
 app = Flask(__name__)
 CORS(app)

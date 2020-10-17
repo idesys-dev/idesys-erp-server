@@ -13,3 +13,4 @@ email_validator
 template-pptx-jinja
 gunicorn
 google-api-python-client
+flask-login
